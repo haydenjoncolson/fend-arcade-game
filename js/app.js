@@ -18,17 +18,18 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     // dt * speed
-    this.x += dt * this.speed
+    this.x += dt * this.speed;
     if (this.x >= 500) {
         this.x = -100;
         // random start
     }
-    this.collision();
 };
 
+// Creates a zone around the player and enemy_zone
+//Resets player position to (200,402)
 Enemy.prototype.collision = function() {
-  var player_zone = {x: player.x, y: player.y, width: 50, height: 50}
-  var enemy_zone = {x: this.x, y: this.y, width: 50, height: 50}
+  var player_zone = {x: player.x, y: player.y, width: 50, height: 50};
+  var enemy_zone = {x: this.x, y: this.y, width: 50, height: 50};
   if (player_zone.x < enemy_zone.x + enemy_zone.width &&
       player_zone.x + player_zone.width > enemy_zone.x &&
       player_zone.y < enemy_zone.y + enemy_zone.height &&
@@ -41,6 +42,7 @@ Enemy.prototype.collision = function() {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    this.collision();
 };
 
 
@@ -51,7 +53,7 @@ var Player = function(x,y) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
-}
+};
 
 Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
